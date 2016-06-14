@@ -42,4 +42,10 @@ public class User {
     public List<String> getRecipes() {
         return recipes;
     }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("name", nombre);
+        return result;
+    }
 }
