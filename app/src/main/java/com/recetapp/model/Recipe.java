@@ -19,6 +19,10 @@ public class Recipe {
         this.descripcion = descripcion;
     }
 
+    public Recipe() {
+
+    }
+
     public String getUser() {
         return user;
     }

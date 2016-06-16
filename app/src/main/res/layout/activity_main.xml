@@ -1,74 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:gravity="center"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
-    android:weightSum="1">
+    android:background="@drawable/bg_login1"
+    tools:context="com.recetapp">
+
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/logo_login"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"/>
+
+    <EditText
+        android:id="@+id/field_user"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        android:hint="Usuario"
+        android:inputType="text"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="50dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"/>
+
+
+    <EditText
+        android:id="@+id/field_password"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:layout_marginTop="30dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Entrar"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:theme="@style/MyButton"/>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="RecetApp"
-        android:id="@+id/app_name_login"
-        android:textAlignment="center" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="¿No estás registrado? Regístrate ahora."
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/com_facebook_button_text_color"
+        android:onClick="btRegister" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="402dp"
-        android:paddingTop="50dp">
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1" />
 
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/testingInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/field_user"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/colorAccent"
-                android:hint="Usuario"
-                android:inputType="text"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_passwordasd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/field_password"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/colorAccent"
-                android:hint="Contraseña"
-                android:inputType="textPassword"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Entrar"
-            android:id="@+id/login_button"
-            android:layout_gravity="center_horizontal"
-            android:background="#428bca"
-            android:layout_marginBottom="25dp" />
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Regístrate"
-            android:id="@+id/button2"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
 </LinearLayout>

@@ -1,90 +1,94 @@
 package com.recetapp;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.recetapp.model.Recipe;
-import com.recetapp.model.User;
 
-import java.util.HashMap;
-import java.util.Map;
+public class MainActivity extends Activity {
 
-public class MainActivity extends AppCompatActivity {
-
-    private Firebase mRef;
+    CallbackManager callbackManager;
+    private Firebase ref;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
         setContentView(R.layout.activity_main);
-
-        /*Firebase.setAndroidContext(this);
-        mRef = new Firebase("https://recetapp-android.firebaseio.com/");
-        final Context that = this;
+        Firebase.setAndroidContext(this);
+        ref = new Firebase("https://recetapp-android.firebaseio.com/");
 
 
-        mRef.createUser("victorovi94@gmail.com", "hola", new Firebase.ValueResultHandler<Map<String, Object>>() {
+        callbackManager = CallbackManager.Factory.create();
+        final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
-            public void onSuccess(Map<String, Object> result) {
-                Toast.makeText(getApplicationContext(), "Registrado", Toast.LENGTH_LONG);
-                createUser(result.get("uid").toString());
-
-                mRef.authWithPassword("victorovi94@gmail.com", "hola", new Firebase.AuthResultHandler() {
-                    @Override
-                    public void onAuthenticated(AuthData authData) {
-                        Toast.makeText(getApplicationContext(), "Logueado", Toast.LENGTH_LONG);
-                    }
-                    @Override
-                    public void onAuthenticationError(FirebaseError firebaseError) {
-                    }
-                });
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(getApplicationContext(), "Tomatito login", Toast.LENGTH_LONG).show();
+                onFacebookAccessTokenChange(loginResult.getAccessToken());
             }
+
             @Override
-            public void onError(FirebaseError firebaseError) {
-               Log.i("err", "Ya registrado");
-                mRef.authWithPassword("victorovi94@gmail.com", "hola", new Firebase.AuthResultHandler() {
-                    @Override
-                    public void onAuthenticated(AuthData authData) {
-                        Toast.makeText(getApplicationContext(), "Logueado", Toast.LENGTH_LONG);
-                        crearReceta(mRef.getAuth().getUid(), "croquetas", "a la plancha");
-                    }
-                    @Override
-                    public void onAuthenticationError(FirebaseError firebaseError) {
-                    }
-                });
+            public void onCancel() {
+                Toast.makeText(getApplicationContext(), "Tomatito cancel", Toast.LENGTH_LONG).show();
+
             }
-        });*/
 
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getApplicationContext(), "Tomatito error", Toast.LENGTH_LONG).show();
 
+            }
+        });
     }
 
-    private void createUser(String uid) {
-        String nombre = "Victor Castaño";
-        User u = new User(nombre, uid);
-
-        Map<String, Object> insert = new HashMap<String, Object>();
-        insert.put("/users/"+uid, u.toMap());
-        mRef.updateChildren(insert);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void crearReceta(String userId, String nombre, String descripcion) {
-        //Creamos la receta
-        String recetaKey = mRef.child("recipes").push().getKey();
-        Recipe recipe = new Recipe(userId, nombre, descripcion);
-        Map<String, Object> rmap = recipe.toMap();
-        Map<String, Object> updates = new HashMap<String, Object>();
-        updates.put("/recipes/"+recetaKey, rmap);
-        mRef.updateChildren(updates);
 
-        //User update including his/her new own recipe
-        updates = new HashMap<String, Object>();
-        updates.put("/users/"+userId+"/own_recipes/"+recetaKey, true);
-        mRef.updateChildren(updates);
+
+    private void onFacebookAccessTokenChange(AccessToken token) {
+        if (token != null) {
+            final AccessToken TOKENASO = token;
+            ref.authWithOAuthToken("facebook", token.getToken(), new Firebase.AuthResultHandler() {
+                @Override
+                public void onAuthenticated(AuthData authData) {
+                    Log.i("ASD", "Pashhh: "+TOKENASO.getUserId());
+                }
+                @Override
+                public void onAuthenticationError(FirebaseError firebaseError) {
+                    Log.i("ASD", "err: ");
+                }
+            });
+        } else {
+        /* Logged out of Facebook so do a logout from the Firebase app */
+            ref.unauth();
+        }
+    }
+
+    public void btRegister(View view) {
+        /*Intent intent = new Intent(this, RegistrerActivity.class);
+        startActivity(intent);*/
     }
 }
+
