@@ -4,19 +4,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Victor on 26/05/2016.
- */
+
 public class User {
     private String id;
-    private String nombre;
+    private String name;
+    private String email;
 
-    public User(String nombre, String id) {
-        this.nombre = nombre;
+
+    public User(String name, String id, String email) {
+        this.name =  name;
         this.id = id;
+        this.email = email;
+    }
+
+    //Default constructor in order to deserialize objects from firebase
+    public User() {
     }
 
     private List<String> recipes;
+
+    public User(String name, String email) {
+        this.name =  name;
+        this.email = email;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -30,13 +40,13 @@ public class User {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
+    public void setName(String name) {
 
-        this.nombre = nombre;
+        this.name = name;
     }
 
     public List<String> getRecipes() {
@@ -45,7 +55,25 @@ public class User {
 
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("name", nombre);
+        result.put("name", name);
+        result.put("email", email);
         return result;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
