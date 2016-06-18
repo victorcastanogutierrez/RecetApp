@@ -24,7 +24,7 @@
         android:id="@+id/field_user"
         android:layout_height="wrap_content"
         android:textColorHint="@android:color/white"
-        android:hint="Nombre"
+        android:hint="@string/name"
         android:inputType="text"
         android:textColor="@android:color/white"
         android:layout_marginTop="50dp"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
-        android:hint="Contraseña"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_marginTop="30dp"
         android:layout_width="300dp"
@@ -47,17 +47,16 @@
         android:layout_height="wrap_content"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="text"
         android:layout_marginTop="30dp"
         android:layout_width="300dp"
-        android:layout_gravity="center"
-        android:text="Correo" />
+        android:layout_gravity="center" />
 
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Entrar"
+        android:text="@string/register"
         android:id="@+id/button"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"

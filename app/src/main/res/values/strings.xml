@@ -3,4 +3,7 @@
     <string name="facebook_app_id">1043774365658364</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="register">Registrarse</string>
+    <string name="join">Entrar</string>
 </resources>
