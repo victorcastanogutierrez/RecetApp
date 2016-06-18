@@ -18,10 +18,10 @@
         android:layout_marginTop="60dp"/>
 
     <EditText
-        android:id="@+id/field_user"
+        android:id="@+id/field_email"
         android:layout_height="wrap_content"
         android:textColorHint="@android:color/white"
-        android:hint="Usuario"
+        android:hint="@string/email"
         android:inputType="text"
         android:textColor="@android:color/white"
         android:layout_marginTop="50dp"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
-        android:hint="Contraseña"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:layout_marginTop="30dp"
         android:layout_width="300dp"
@@ -44,7 +44,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Entrar"
-        android:id="@+id/button"
+        android:id="@+id/loginBt"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:theme="@style/MyButton"/>
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="¿No estás registrado? Regístrate ahora."
-        android:id="@+id/textView"
+        android:id="@+id/txRegister"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
         android:textColor="@color/com_facebook_button_text_color"

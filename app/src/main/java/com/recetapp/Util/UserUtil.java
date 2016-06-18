@@ -15,7 +15,12 @@ public class UserUtil {
         u.setId(user.getId());
     }
 
-    public static void logOutFromFacebook() {
-        LoginManager.getInstance().logOut();
+    //Logout depending on provider
+    public static void logOut() {
+        if(UserManager.getManager().getAuthData() != null) {
+            if (UserManager.getManager().getAuthData().getProvider().equals("facebook")) {
+                LoginManager.getInstance().logOut();
+            }
+        }
     }
 }

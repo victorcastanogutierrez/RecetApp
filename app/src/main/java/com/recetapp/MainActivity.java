@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -24,6 +25,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.recetapp.Util.FacebookUtil;
+import com.recetapp.Util.UserManager;
 import com.recetapp.Util.UserUtil;
 import com.recetapp.model.User;
 
@@ -31,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends Activity {
@@ -74,6 +77,9 @@ public class MainActivity extends Activity {
             findViewById(R.id.lnLayout).setVisibility(View.GONE);
             getAccessFacebookData(AccessToken.getCurrentAccessToken());
         }
+
+        setUpRegisterBt();
+        setUpLoginBt();
     }
 
     @Override
@@ -100,7 +106,7 @@ public class MainActivity extends Activity {
                             .show();
                     findViewById(R.id.lnLayout).setVisibility(View.VISIBLE);
                     progressDialog.dismiss();
-                    UserUtil.logOutFromFacebook();
+                    UserUtil.logOut();
                 }
             }
         });
@@ -179,6 +185,42 @@ public class MainActivity extends Activity {
                 Toast.LENGTH_LONG).show();
     }
 
+    private void setUpRegisterBt() {
+        findViewById(R.id.txRegister).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setUpLoginBt() {
+        findViewById(R.id.loginBt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createProcessDialog();
+                final String email = ((EditText) findViewById(R.id.field_email)).getText().toString();
+                String password = ((EditText) findViewById(R.id.field_password)).getText().toString();
+                ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
+                    @Override
+                    public void onAuthenticated(AuthData authData) {
+                        UserManager.getManager().setAuthData(authData);
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("email", email);
+                        checkRegister(data);
+                    }
+                    @Override
+                    public void onAuthenticationError(FirebaseError firebaseError) {
+                        Toast.makeText(getApplicationContext(), "Email/password incorrecto", Toast.LENGTH_LONG)
+                            .show();
+                        progressDialog.dismiss();
+                    }
+                });
+            }
+        });
+    }
+
     private class AuthResultHandler implements Firebase.AuthResultHandler {
 
         private final String provider;
@@ -189,6 +231,7 @@ public class MainActivity extends Activity {
 
         @Override
         public void onAuthenticated(AuthData authData) {
+            UserManager.getManager().setAuthData(authData);
         }
 
         @Override

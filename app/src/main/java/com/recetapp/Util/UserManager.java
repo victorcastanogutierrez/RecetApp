@@ -1,5 +1,6 @@
 package com.recetapp.Util;
 
+import com.firebase.client.AuthData;
 import com.recetapp.model.User;
 
 /**
@@ -9,6 +10,7 @@ public class UserManager {
 
     private static UserManager userManager = null;
     private User user;
+    private AuthData authData;
 
     private UserManager() {
         this.user = new User();
@@ -21,7 +23,16 @@ public class UserManager {
         return userManager;
     }
 
+
     public User getUser() {
         return this.user;
+    }
+
+    public AuthData getAuthData() {
+        return authData;
+    }
+
+    public void setAuthData(AuthData authData) {
+        this.authData = authData;
     }
 }
