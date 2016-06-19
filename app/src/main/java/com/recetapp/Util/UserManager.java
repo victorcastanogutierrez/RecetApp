@@ -11,8 +11,6 @@ public class UserManager {
 
     private static UserManager userManager = null;
     private User user;
-    private AuthData authData;
-    private Firebase ref;
 
     private UserManager() {
         this.user = new User();
@@ -30,19 +28,4 @@ public class UserManager {
         return this.user;
     }
 
-    public AuthData getAuthData() {
-        return authData;
-    }
-
-    public void setAuthData(AuthData authData) {
-        this.authData = authData;
-    }
-
-    public Firebase getRef() {
-        return ref;
-    }
-
-    public void setRef(Firebase ref) {
-        this.ref = ref;
-    }
 }

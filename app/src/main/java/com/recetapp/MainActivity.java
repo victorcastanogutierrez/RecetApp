@@ -55,7 +55,6 @@ public class MainActivity extends Activity {
         //Firebase instanciation
         Firebase.setAndroidContext(this);
         ref = new Firebase("https://recetapp-android.firebaseio.com/");
-        UserManager.getManager().setRef(ref);
 
         //View and Facebook login callbacks
         setContentView(R.layout.activity_main);
@@ -67,9 +66,10 @@ public class MainActivity extends Activity {
         AccessTokenTracker mFacebookAccessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                Log.i("log", "Facebook.AccessTokenTracker.OnCurrentAccessTokenChanged");
-                MainActivity.this.onFacebookAccessTokenChange(currentAccessToken);
-                getAccessFacebookData(currentAccessToken);
+                if (currentAccessToken != null) { // Is logged in
+                    MainActivity.this.onFacebookAccessTokenChange(currentAccessToken);
+                    getAccessFacebookData(currentAccessToken);
+                }
             }
         };
 
@@ -120,7 +120,7 @@ public class MainActivity extends Activity {
 
     private void onFacebookAccessTokenChange(AccessToken token) {
         if (token != null) {
-            ref.authWithOAuthToken("facebook", token.getToken(), new AuthResultHandler("facebook"));
+            ref.authWithOAuthToken("facebook", token.getToken(), null);
         } else {
             ref.unauth();
         }
@@ -165,7 +165,9 @@ public class MainActivity extends Activity {
     private void createProcessDialog() {
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Procesando datos...");
-        progressDialog.show();
+        if (! this.isFinishing()) {
+            progressDialog.show();
+        }
     }
 
     @Override
@@ -205,7 +207,6 @@ public class MainActivity extends Activity {
                 ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
                     @Override
                     public void onAuthenticated(AuthData authData) {
-                        UserManager.getManager().setAuthData(authData);
                         Map<String, Object> data = new HashMap<>();
                         data.put("email", email);
                         checkRegister(data);
@@ -219,25 +220,6 @@ public class MainActivity extends Activity {
                 });
             }
         });
-    }
-
-    private class AuthResultHandler implements Firebase.AuthResultHandler {
-
-        private final String provider;
-
-        public AuthResultHandler(String provider) {
-            this.provider = provider;
-        }
-
-        @Override
-        public void onAuthenticated(AuthData authData) {
-            UserManager.getManager().setAuthData(authData);
-        }
-
-        @Override
-        public void onAuthenticationError(FirebaseError firebaseError) {
-
-        }
     }
 }
 

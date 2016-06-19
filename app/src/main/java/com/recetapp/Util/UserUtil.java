@@ -3,10 +3,12 @@ package com.recetapp.Util;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.util.Log;
 import android.util.Patterns;
 
 import com.facebook.login.LoginManager;
 import com.firebase.client.AuthData;
+import com.firebase.client.Firebase;
 import com.recetapp.model.User;
 
 import java.util.ArrayList;
@@ -27,13 +29,11 @@ public class UserUtil {
 
     //Logout depending on provider
     public static void logOut() {
-        AuthData authData = UserManager.getManager().getAuthData();
-        if(authData != null) {
-            if (authData.getProvider().equals("facebook")) {
-                LoginManager.getInstance().logOut();
-            }
+        if (FacebookUtil.isFacebookLoggedIn()) {
+            LoginManager.getInstance().logOut();
         }
-        UserManager.getManager().getRef().unauth();
+        Firebase ref = new Firebase("https://recetapp-android.firebaseio.com/");
+        ref.unauth();
     }
 
     //Obtains the list of emails used on the device
