@@ -57,7 +57,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:id="@+id/btRegister"
+        android:id="@+id/RegisterButton"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:theme="@style/MyButton"/>
