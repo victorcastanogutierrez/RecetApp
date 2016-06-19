@@ -42,11 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerUser();
     }
 
-    //TODO: register logic
-    private void setUpRegisterBt() {
-        //TODO: cuando un usuario se registra, su cuenta se debe registrar en firebase en /users
-    }
-
     private void setUpEmailPredict() {
         List<String> emails = UserUtil.getEmailAddress(RegisterActivity.this);
         if (emails.size() > 0) {
@@ -81,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             @Override
                             public void onError(FirebaseError firebaseError) {
-                                Log.i("HOLA", firebaseError.toString());
+                                handleErrors(firebaseError);
                             }
                         }
                     );
@@ -103,5 +98,26 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean assertRegisterFields(String nombre, String password, String email) {
         return nombre != null && email != null && password != null;
+    }
+
+    private void handleErrors(FirebaseError error){
+        switch (error.getCode()) {
+            case FirebaseError.EMAIL_TAKEN:
+                Toast.makeText(getApplicationContext(), "El email ya está en uso ",
+                        Toast.LENGTH_LONG).show();
+                break;
+            case FirebaseError.INVALID_EMAIL:
+                Toast.makeText(getApplicationContext(), "El email es incorrecto",
+                        Toast.LENGTH_LONG).show();
+                break;
+            case FirebaseError.NETWORK_ERROR:
+                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor",
+                        Toast.LENGTH_LONG).show();
+                break;
+            default:
+                Toast.makeText(getApplicationContext(), "Error.",
+                        Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 }
