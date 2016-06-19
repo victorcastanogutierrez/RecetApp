@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
         //Firebase instanciation
         Firebase.setAndroidContext(this);
         ref = new Firebase("https://recetapp-android.firebaseio.com/");
+        UserManager.getManager().setRef(ref);
 
         //View and Facebook login callbacks
         setContentView(R.layout.activity_main);
@@ -120,7 +121,6 @@ public class MainActivity extends Activity {
     private void onFacebookAccessTokenChange(AccessToken token) {
         if (token != null) {
             ref.authWithOAuthToken("facebook", token.getToken(), new AuthResultHandler("facebook"));
-
         } else {
             ref.unauth();
         }
