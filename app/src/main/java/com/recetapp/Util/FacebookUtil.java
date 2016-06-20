@@ -1,8 +1,11 @@
 package com.recetapp.Util;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.facebook.AccessToken;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,4 +26,9 @@ public class FacebookUtil {
         result.put("name", object.get("name"));
         return result;
     }
+
+    public static RequestCreator getUserPicture(Context ctx, String userId) {
+        return Picasso.with(ctx).load("https://graph.facebook.com/" + userId + "/picture?type=large");
+    }
+
 }

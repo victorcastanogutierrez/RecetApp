@@ -30,6 +30,8 @@ import com.recetapp.Util.FacebookUtil;
 import com.recetapp.Util.UserManager;
 import com.recetapp.Util.UserUtil;
 import com.recetapp.model.User;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,7 +117,7 @@ public class MainActivity extends Activity {
         });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,gender,birthday");
+        parameters.putString("fields", "id,name,email,picture");
         request.setParameters(parameters);
         request.executeAsync();
     }
@@ -204,27 +206,35 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                //Hide keyboard
-                InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(loginButton.getWindowToken(), 0);
-
-                createProcessDialog();
+                //Check inputs
                 final String email = ((EditText) findViewById(R.id.field_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.field_password)).getText().toString();
-                ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
-                    @Override
-                    public void onAuthenticated(AuthData authData) {
-                        Map<String, Object> data = new HashMap<>();
-                        data.put("email", email);
-                        checkRegister(data);
-                    }
-                    @Override
-                    public void onAuthenticationError(FirebaseError firebaseError) {
-                        Snackbar.make((View) findViewById(R.id.lnLayout), "Email/password incorrecto", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        progressDialog.dismiss();
-                    }
-                });
+                if (email.equals("") || password.equals("")) {
+                    Snackbar.make((View) findViewById(R.id.lnLayout), "Email y password requeridos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else {
+                    //Hide keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(loginButton.getWindowToken(), 0);
+
+                    createProcessDialog();
+                    ref.authWithPassword(email, password, new Firebase.AuthResultHandler() {
+                        @Override
+                        public void onAuthenticated(AuthData authData) {
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("email", email);
+                            checkRegister(data);
+                        }
+
+                        @Override
+                        public void onAuthenticationError(FirebaseError firebaseError) {
+                            Snackbar.make((View) findViewById(R.id.lnLayout), "Email/password incorrecto", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            progressDialog.dismiss();
+                        }
+                    });
+                }
             }
         });
     }

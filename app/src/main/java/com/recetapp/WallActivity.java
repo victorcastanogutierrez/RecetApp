@@ -14,7 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.recetapp.Util.FacebookUtil;
+import com.recetapp.Util.UserManager;
 import com.recetapp.Util.UserUtil;
 
 public class WallActivity extends AppCompatActivity
@@ -27,12 +32,12 @@ public class WallActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ((Button) findViewById(R.id.RecipeButton)).setOnClickListener(new View.OnClickListener() {
+        ((Button) findViewById(R.id.SalirBt)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 UserUtil.logOut();
                 finish();
-                Intent i = new Intent(WallActivity.this, RecipeActivity.class);
+                Intent i = new Intent(WallActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -54,6 +59,23 @@ public class WallActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setUpUserData();
+    }
+
+    private void setUpUserData() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navigationView.getHeaderView(0);
+        if(FacebookUtil.isFacebookLoggedIn()) {
+            //User image
+            ImageView userImage = (ImageView) hView.findViewById(R.id.userImage);
+            FacebookUtil.getUserPicture(WallActivity.this,
+                    AccessToken.getCurrentAccessToken().getUserId()).into(userImage);
+        }
+        TextView userHeaderName = (TextView) hView.findViewById(R.id.userHeaderName);
+        userHeaderName.setText(UserManager.getManager().getUser().getName());
+        TextView userHeaderEmail = (TextView) hView.findViewById(R.id.userHeaderEmail);
+        userHeaderEmail.setText(UserManager.getManager().getUser().getEmail());
     }
 
     @Override
