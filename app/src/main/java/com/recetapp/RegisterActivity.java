@@ -1,6 +1,7 @@
 package com.recetapp;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -103,20 +104,20 @@ public class RegisterActivity extends AppCompatActivity {
     private void handleErrors(FirebaseError error){
         switch (error.getCode()) {
             case FirebaseError.EMAIL_TAKEN:
-                Toast.makeText(getApplicationContext(), "El email ya está en uso ",
-                        Toast.LENGTH_LONG).show();
+                Snackbar.make((View) findViewById(R.id.layoutRegister), "El Email ya está en uso", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 break;
             case FirebaseError.INVALID_EMAIL:
-                Toast.makeText(getApplicationContext(), "El email es incorrecto",
-                        Toast.LENGTH_LONG).show();
+                Snackbar.make((View) findViewById(R.id.layoutRegister), "El Email es incorrecto", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 break;
             case FirebaseError.NETWORK_ERROR:
-                Toast.makeText(getApplicationContext(), "Error al conectar con el servidor",
-                        Toast.LENGTH_LONG).show();
+                Snackbar.make((View) findViewById(R.id.layoutRegister), "Error al conectar con el servidor", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "Error.",
-                        Toast.LENGTH_LONG).show();
+                Snackbar.make((View) findViewById(R.id.layoutRegister), "Error", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 break;
         }
     }

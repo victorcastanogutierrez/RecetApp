@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -103,8 +105,8 @@ public class MainActivity extends Activity {
                     checkRegister(fbUserData);
                 } catch (JSONException | NullPointerException e) {
                     //The account does not have verified email
-                    Toast.makeText(getApplicationContext(), "Datos de cuenta facebook insuficientes", Toast.LENGTH_LONG)
-                            .show();
+                    Snackbar.make((View) findViewById(R.id.lnLayout), "Datos de cuenta facebook insuficientes", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     findViewById(R.id.lnLayout).setVisibility(View.VISIBLE);
                     progressDialog.dismiss();
                     UserUtil.logOut();
@@ -183,8 +185,8 @@ public class MainActivity extends Activity {
         finish();
         Intent intent = new Intent(this, WallActivity.class);
         startActivity(intent);
-        Toast.makeText(getApplicationContext(), "Bienvenido "+user.getName(),
-                Toast.LENGTH_LONG).show();
+        Snackbar.make((View) findViewById(R.id.lnLayout), "Bienvenido "+user.getName(), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     private void setUpRegisterBt() {
@@ -201,6 +203,11 @@ public class MainActivity extends Activity {
         findViewById(R.id.loginBt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Hide keyboard
+                InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(loginButton.getWindowToken(), 0);
+
                 createProcessDialog();
                 final String email = ((EditText) findViewById(R.id.field_email)).getText().toString();
                 String password = ((EditText) findViewById(R.id.field_password)).getText().toString();
@@ -213,8 +220,8 @@ public class MainActivity extends Activity {
                     }
                     @Override
                     public void onAuthenticationError(FirebaseError firebaseError) {
-                        Toast.makeText(getApplicationContext(), "Email/password incorrecto", Toast.LENGTH_LONG)
-                            .show();
+                        Snackbar.make((View) findViewById(R.id.lnLayout), "Email/password incorrecto", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
                         progressDialog.dismiss();
                     }
                 });
