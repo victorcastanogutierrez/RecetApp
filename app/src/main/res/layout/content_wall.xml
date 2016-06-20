@@ -12,11 +12,6 @@
     tools:context="com.recetapp.WallActivity"
     tools:showIn="@layout/app_bar_wall">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Salir"
-        android:id="@+id/SalirBt"
-        android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>
