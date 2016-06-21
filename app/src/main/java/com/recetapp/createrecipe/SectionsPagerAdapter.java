@@ -1,8 +1,5 @@
 package com.recetapp.createrecipe;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -60,7 +57,7 @@ public class SectionsPagerAdapter extends PagerAdapter {
 
     public int addView (View v, int position)
     {
-        views.add (position, v);
+        views.add (v);
         notifyDataSetChanged();
         return position;
     }

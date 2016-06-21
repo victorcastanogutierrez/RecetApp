@@ -1,10 +1,13 @@
 package com.recetapp;
 
 import android.app.Activity;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.recetapp.createrecipe.SectionsPagerAdapter;
@@ -31,10 +34,28 @@ public class CreateRecipeActivity extends Activity {
 
         //Create the initial pages
         LayoutInflater inflater = CreateRecipeActivity.this.getLayoutInflater();
-        FrameLayout v0 = (FrameLayout) inflater.inflate (R.layout.fragment_create_recipe, null);
-        mSectionsPagerAdapter.addView (v0, 0);
-        v0 = (FrameLayout) inflater.inflate (R.layout.fragment_createstep_recipe, null);
-        mSectionsPagerAdapter.addView (v0, 0);
+        FrameLayout fl = (FrameLayout) inflater.inflate (R.layout.fragment_create_recipe, null);
+        mSectionsPagerAdapter.addView (fl, 0);
+
+        fl = (FrameLayout) inflater.inflate (R.layout.fragment_createstep_recipe, null);
+        mSectionsPagerAdapter.addView (fl, 0);
+        setUpNextStepButton(fl);
+    }
+
+    private void setUpNextStepButton(final FrameLayout view) {
+        Button btNextStep = (Button) view.findViewById(R.id.btNextStep);
+        btNextStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make((View) view.findViewById(R.id.rrLay), "Añadido nuevo paso", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                LayoutInflater inflater = CreateRecipeActivity.this.getLayoutInflater();
+                FrameLayout fl = (FrameLayout) inflater.inflate (R.layout.fragment_createstep_recipe, null);
+                mSectionsPagerAdapter.addView (fl, 0);
+                setUpNextStepButton(fl);
+            }
+        });
     }
 
     //-----------------------------------------------------------------------------
