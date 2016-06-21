@@ -1,13 +1,11 @@
-package com.recetapp.Util;
+package com.recetapp.util;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.util.Log;
 import android.util.Patterns;
 
 import com.facebook.login.LoginManager;
-import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.recetapp.model.User;
 

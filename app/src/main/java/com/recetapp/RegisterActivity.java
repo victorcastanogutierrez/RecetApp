@@ -4,22 +4,16 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.annotations.NotNull;
-import com.recetapp.Util.UserManager;
-import com.recetapp.Util.UserUtil;
+import com.recetapp.util.UserUtil;
 import com.recetapp.model.User;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

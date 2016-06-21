@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -26,12 +25,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import com.recetapp.Util.FacebookUtil;
-import com.recetapp.Util.UserManager;
-import com.recetapp.Util.UserUtil;
+import com.recetapp.util.FacebookUtil;
+import com.recetapp.util.UserUtil;
 import com.recetapp.model.User;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import org.json.JSONException;
 import org.json.JSONObject;

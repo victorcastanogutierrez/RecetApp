@@ -1,11 +1,8 @@
 package com.recetapp;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,14 +15,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
-import com.recetapp.Util.FacebookUtil;
-import com.recetapp.Util.UserManager;
-import com.recetapp.Util.UserUtil;
+import com.recetapp.util.FacebookUtil;
+import com.recetapp.util.UserManager;
+import com.recetapp.util.UserUtil;
 import com.recetapp.model.Recipe;
 
 import java.util.ArrayList;
@@ -89,8 +85,8 @@ public class WallActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(WallActivity.this, CreateRecipeActivity.class);
+                startActivity(i);
             }
         });
     }

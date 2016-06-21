@@ -37,6 +37,10 @@
             android:name=".WallActivity"
             android:label="@string/title_activity_wall"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateRecipeActivity"
+            android:label="@string/title_activity_create_recipe"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

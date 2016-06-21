@@ -1,7 +1,5 @@
-package com.recetapp.Util;
+package com.recetapp.util;
 
-import com.firebase.client.AuthData;
-import com.firebase.client.Firebase;
 import com.recetapp.model.User;
 
 /**
