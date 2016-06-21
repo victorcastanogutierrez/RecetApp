@@ -30,7 +30,7 @@ public class WallRvAdapter extends RecyclerView.Adapter<WallRvAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
-        holder.userImage.setImageResource(R.drawable.logo_login);
+        holder.userImage.setImageResource(R.drawable.tomate);
     }
 
     @Override
