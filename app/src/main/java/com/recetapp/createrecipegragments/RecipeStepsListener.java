@@ -8,6 +8,5 @@ import android.support.design.widget.TabLayout;
 public interface RecipeStepsListener {
 
     void addStep();
-
-    void removeStep(Object fragment);
+    void removeStep();
 }

@@ -29,8 +29,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         setUpLabLayout();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new CreateRecipePageAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+        adapter = new CreateRecipePageAdapter (getSupportFragmentManager());
 
 
         viewPager.setAdapter(adapter);
@@ -61,18 +60,15 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
 
     @Override
     public void addStep() {
-        adapter.setmNumOfTabs(adapter.getCount()+1);
+        adapter.addNewStep(currentTab.getPosition()+1);
         adapter.notifyDataSetChanged();
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
     }
 
     @Override
-    public void removeStep(Object fragment) {
-        adapter.setmNumOfTabs(adapter.getCount()-1);
-        //adapter.destroyItem((ViewGroup)getWindow().getDecorView().getRootView(), currentTab.getPosition(), fragment);
+    public void removeStep() {
+        adapter.removeStep(currentTab.getPosition());
         adapter.notifyDataSetChanged();
         tabLayout.removeTab(currentTab);
     }
-
-
 }

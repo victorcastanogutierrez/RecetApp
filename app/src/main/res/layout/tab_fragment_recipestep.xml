@@ -20,4 +20,12 @@
         android:layout_above="@+id/newStepBt"
         android:layout_alignEnd="@+id/newStepBt"
         android:layout_marginBottom="38dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/txStep"
+        android:layout_above="@+id/removeStepBt"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

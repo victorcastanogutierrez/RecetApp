@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.recetapp.CreateRecipeActivity;
 import com.recetapp.R;
@@ -17,6 +18,15 @@ import com.recetapp.R;
 public class TabRecipeStepFragment extends Fragment {
 
     private RecipeStepsListener listener;
+    private int position;
+
+    public TabRecipeStepFragment(int position) {
+        this.position = position;
+    }
+
+    public TabRecipeStepFragment() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,6 +34,7 @@ public class TabRecipeStepFragment extends Fragment {
 
         setUpNewStepButton(view);
         setUpRemoveStepButton(view);
+        setUpTxPaso(view);
         return view;
     }
 
@@ -33,7 +44,7 @@ public class TabRecipeStepFragment extends Fragment {
         removeStepBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.removeStep(obj);
+                listener.removeStep();
             }
         });
     }
@@ -56,5 +67,10 @@ public class TabRecipeStepFragment extends Fragment {
                 listener.addStep();
             }
         });
+    }
+
+    public void setUpTxPaso(View view) {
+        TextView txStep = (TextView) view.findViewById(R.id.txStep);
+        txStep.setText(position+"");
     }
 }
