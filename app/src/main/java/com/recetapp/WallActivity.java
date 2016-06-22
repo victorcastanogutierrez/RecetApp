@@ -93,7 +93,7 @@ public class WallActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(WallActivity.this, CreateRecipeActivity.class);
+                Intent i = new Intent(getApplicationContext(), CreateRecipeActivity.class);
                 startActivity(i);
             }
         });

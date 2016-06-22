@@ -67,7 +67,6 @@ public class MainActivity extends Activity {
             checkRegister(userdata);
         }
 
-
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email"));
