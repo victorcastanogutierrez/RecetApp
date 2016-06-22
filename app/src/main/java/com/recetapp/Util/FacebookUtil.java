@@ -1,7 +1,6 @@
-package com.recetapp.Util;
+package com.recetapp.util;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import com.facebook.AccessToken;
 import com.squareup.picasso.Picasso;
