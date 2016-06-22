@@ -31,14 +31,14 @@ public class CreateRecipePageAdapter extends FragmentStatePagerAdapter {
         return fragments.size();
     }
 
-    @Override
+   /* @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        super.destroyItem(container, position, object);
+        //super.destroyItem(container, position, object);
         FragmentManager manager = ((Fragment) object).getFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
         trans.remove((Fragment) object);
         trans.commit();
-    }
+    }*/
 
     public void addNewStep(int position) {
         fragments.add(new TabRecipeStepFragment(position));

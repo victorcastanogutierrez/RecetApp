@@ -60,13 +60,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
 
     @Override
     public void addStep() {
-        adapter.addNewStep(currentTab.getPosition()+1);
+        adapter.addNewStep(adapter.getCount());
         adapter.notifyDataSetChanged();
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab "+(adapter.getCount())));
     }
 
     @Override
     public void removeStep() {
+        adapter.destroyItem(tabLayout,currentTab.getPosition(),adapter.getItem(currentTab.getPosition()));
         adapter.removeStep(currentTab.getPosition());
         adapter.notifyDataSetChanged();
         tabLayout.removeTab(currentTab);
