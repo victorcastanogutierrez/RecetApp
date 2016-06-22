@@ -59,6 +59,15 @@ public class MainActivity extends Activity {
         //View and Facebook login callbacks
         setContentView(R.layout.activity_main);
 
+        //Check if is already logged in
+        if(ref.getAuth() != null && ref.getAuth().getProvider().equals("password")) {
+            createProcessDialog();
+            findViewById(R.id.lnLayout).setVisibility(View.GONE);
+            final Map<String, Object> userdata = ref.getAuth().getProviderData();
+            checkRegister(userdata);
+        }
+
+
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email"));

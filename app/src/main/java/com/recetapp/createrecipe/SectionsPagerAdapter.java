@@ -79,14 +79,4 @@ public class SectionsPagerAdapter extends PagerAdapter {
     {
         return views.get (position);
     }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Datos de la receta";
-            default:
-                return "Ingredientes ("+position+")";
-        }
-    }
 }
