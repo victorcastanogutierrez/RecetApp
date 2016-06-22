@@ -1,11 +1,18 @@
 package com.recetapp;
 
+
+import android.app.SearchManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+
+import android.support.v4.view.MenuItemCompat;
+
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +26,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
+import com.recetapp.model.Recipe;
 import com.recetapp.util.FacebookUtil;
 import com.recetapp.util.UserManager;
 import com.recetapp.util.UserUtil;
-import com.recetapp.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +85,7 @@ public class WallActivity extends AppCompatActivity
 
         DrawerArrowDrawable drawerArrow = new DrawerArrowDrawable(this);
         toolbar.setNavigationIcon(drawerArrow);
+        drawerArrow.setColor(0xFFFFFFFF);
     }
 
     private void setUpFabBt() {
@@ -120,6 +128,11 @@ public class WallActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.wall, menu);
+        // Retrieve the SearchView and plug it into SearchManager
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("Buscar receta...");
         return true;
     }
 

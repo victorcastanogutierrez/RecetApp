@@ -1,5 +1,6 @@
 package com.recetapp;
 
+
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class WallRvAdapter extends RecyclerView.Adapter<WallRvAdapter.RecipeView
     }
 
     public static class RecipeViewHolder extends RecyclerView.ViewHolder {
+
         CardView cv;
         ImageView userImage;
 
@@ -46,6 +48,7 @@ public class WallRvAdapter extends RecyclerView.Adapter<WallRvAdapter.RecipeView
             super(itemView);
 
             cv = (CardView) itemView.findViewById(R.id.cv);
+            cv.setPreventCornerOverlap(true);
             userImage = (ImageView) itemView.findViewById(R.id.recipeCVImage);
         }
     }
