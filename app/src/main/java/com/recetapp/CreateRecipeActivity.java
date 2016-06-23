@@ -43,7 +43,6 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
-
             @Override
             public void onTabSelected(TabLayout.Tab tab) { currentTab = tab;
             }
@@ -64,20 +63,20 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
     public void addStep() {
         adapter.addNewStep(adapter.getCount());
         tabLayout.addTab(tabLayout.newTab().setText("Tab "+(adapter.getCount())));
-        int curPos = currentTab.getPosition();
         viewPager.setAdapter(adapter); // reasign adapter to avoid nullpointer
-        moveToPosition(curPos+1); // move to the new page
+        moveToPosition(tabLayout.getTabCount()-1); // move to the new page
         adapter.notifyDataSetChanged();
     }
 
     @Override
     public void removeStep() {
-        adapter.destroyItem(tabLayout,currentTab.getPosition(),adapter.getItem(currentTab.getPosition()));
+        int curPos = currentTab.getPosition();
         adapter.removeStep(currentTab.getPosition());
+        tabLayout.removeTab(currentTab);
         adapter.notifyDataSetChanged();
-        TabLayout.Tab oldTab = currentTab;
-        moveToPosition(currentTab.getPosition()-1); // move back before removing
-        tabLayout.removeTab(oldTab);
+        adapter.destroyItem(tabLayout,currentTab.getPosition(),adapter.getItem(currentTab.getPosition()));
+        viewPager.setAdapter(adapter);
+        moveToPosition(curPos-1); // move back
     }
 
     private void moveToPosition(int index) {
