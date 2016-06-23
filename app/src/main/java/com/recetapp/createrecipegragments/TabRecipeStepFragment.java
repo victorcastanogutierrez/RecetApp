@@ -5,7 +5,10 @@ package com.recetapp.createrecipegragments;
  */
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ public class TabRecipeStepFragment extends Fragment {
         setUpNewStepButton(view);
         setUpRemoveStepButton(view);
         setUpTxPaso(view);
+        setUpScrollingView(view);
         return view;
     }
 
@@ -71,5 +75,17 @@ public class TabRecipeStepFragment extends Fragment {
     public void setUpTxPaso(View view) {
         TextView txStep = (TextView) view.findViewById(R.id.txStep);
         txStep.setText(position+"");
+    }
+
+    public void setUpScrollingView(View view) {
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 }

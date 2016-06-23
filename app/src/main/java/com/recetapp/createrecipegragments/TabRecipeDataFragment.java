@@ -15,6 +15,7 @@ public class TabRecipeDataFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment_recipedata, container, false);
+        View view  = inflater.inflate(R.layout.tab_fragment_recipedata, container, false);
+        return view;
     }
 }
