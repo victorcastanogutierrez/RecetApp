@@ -45,8 +45,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
 
 
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                currentTab = tab;
+            public void onTabSelected(TabLayout.Tab tab) { currentTab = tab;
             }
 
             @Override
@@ -64,8 +63,11 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
     @Override
     public void addStep() {
         adapter.addNewStep(adapter.getCount());
-        adapter.notifyDataSetChanged();
         tabLayout.addTab(tabLayout.newTab().setText("Tab "+(adapter.getCount())));
+        int curPos = currentTab.getPosition();
+        viewPager.setAdapter(adapter); // reasign adapter to avoid nullpointer
+        moveToPosition(curPos+1); // move to the new page
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -74,8 +76,13 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         adapter.removeStep(currentTab.getPosition());
         adapter.notifyDataSetChanged();
         TabLayout.Tab oldTab = currentTab;
-        tabLayout.setScrollPosition(currentTab.getPosition()-1,0f,true); // move back before removing
-        viewPager.setCurrentItem(currentTab.getPosition()-1);
+        moveToPosition(currentTab.getPosition()-1); // move back before removing
         tabLayout.removeTab(oldTab);
+    }
+
+    private void moveToPosition(int index) {
+        tabLayout.setScrollPosition(index,0f,true); // move back before removing
+        viewPager.setCurrentItem(index);
+        currentTab = tabLayout.getTabAt(index);
     }
 }
