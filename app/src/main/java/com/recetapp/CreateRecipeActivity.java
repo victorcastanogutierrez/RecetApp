@@ -64,7 +64,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         adapter.addNewStep(adapter.getCount());
         tabLayout.addTab(tabLayout.newTab().setText("Tab "+(adapter.getCount())));
         viewPager.setAdapter(adapter); // reasign adapter to avoid nullpointer
-        moveToPosition(tabLayout.getTabCount()-1); // move to the new page
+        moveToPosition(currentTab.getPosition(), tabLayout.getTabCount()-1); // move to the new page
         adapter.notifyDataSetChanged();
     }
 
@@ -76,11 +76,12 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         adapter.notifyDataSetChanged();
         adapter.destroyItem(tabLayout,currentTab.getPosition(),adapter.getItem(currentTab.getPosition()));
         viewPager.setAdapter(adapter);
-        moveToPosition(curPos-1); // move back
+        moveToPosition(curPos, curPos-1); // move back
     }
 
-    private void moveToPosition(final int index) {
+    private void moveToPosition(int oldindex, final int index) {
         tabLayout.setScrollPosition(index,0f,true); // move back before removing
+        viewPager.setCurrentItem(oldindex); // avoid anim move from the first
         new Handler().post(new Runnable() {
             @Override
             public void run() {
