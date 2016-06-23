@@ -1,11 +1,11 @@
 package com.recetapp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
 
 import com.recetapp.createrecipegragments.CreateRecipePageAdapter;
 import com.recetapp.createrecipegragments.RecipeStepsListener;
@@ -79,9 +79,14 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         moveToPosition(curPos-1); // move back
     }
 
-    private void moveToPosition(int index) {
+    private void moveToPosition(final int index) {
         tabLayout.setScrollPosition(index,0f,true); // move back before removing
-        viewPager.setCurrentItem(index);
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setCurrentItem(index, true);
+            }
+        });
         currentTab = tabLayout.getTabAt(index);
     }
 }
