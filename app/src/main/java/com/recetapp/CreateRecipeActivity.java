@@ -16,6 +16,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
     private TabLayout tabLayout;
     private CreateRecipePageAdapter adapter;
     private TabLayout.Tab currentTab;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         setUpLabLayout();
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new CreateRecipePageAdapter (getSupportFragmentManager());
 
 
@@ -41,6 +42,8 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 currentTab = tab;
@@ -70,6 +73,9 @@ public class CreateRecipeActivity extends AppCompatActivity implements RecipeSte
         adapter.destroyItem(tabLayout,currentTab.getPosition(),adapter.getItem(currentTab.getPosition()));
         adapter.removeStep(currentTab.getPosition());
         adapter.notifyDataSetChanged();
-        tabLayout.removeTab(currentTab);
+        TabLayout.Tab oldTab = currentTab;
+        tabLayout.setScrollPosition(currentTab.getPosition()-1,0f,true); // move back before removing
+        viewPager.setCurrentItem(currentTab.getPosition()-1);
+        tabLayout.removeTab(oldTab);
     }
 }

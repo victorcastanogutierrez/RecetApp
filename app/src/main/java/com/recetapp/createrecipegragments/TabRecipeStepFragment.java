@@ -31,7 +31,6 @@ public class TabRecipeStepFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_fragment_recipestep, container, false);
-
         setUpNewStepButton(view);
         setUpRemoveStepButton(view);
         setUpTxPaso(view);
