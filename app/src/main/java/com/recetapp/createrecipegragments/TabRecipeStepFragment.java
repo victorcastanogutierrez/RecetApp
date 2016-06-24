@@ -4,6 +4,9 @@ package com.recetapp.createrecipegragments;
  * Created by Victor on 22/06/2016.
  */
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 import com.recetapp.CreateRecipeActivity;
 import com.recetapp.R;
+import com.recetapp.util.ImageUtil;
 
 public class TabRecipeStepFragment extends Fragment {
 
@@ -83,9 +87,25 @@ public class TabRecipeStepFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent chooseImageIntent = ImageUtil.getPickImageIntent(getContext());
+                startActivityForResult(chooseImageIntent, PICK_IMAGE_ID);
             }
         });
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case PICK_IMAGE_ID:
+                Bitmap bitmap = ImageUtil.getImageFromResult(getContext(), resultCode, data);
+                BitmapDrawable ob = new BitmapDrawable(getResources(), bitmap);
+                getView().findViewById(R.id.top_bar).setBackground(ob);
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
+    }
+
+    private static final int PICK_IMAGE_ID = 234;
 }
