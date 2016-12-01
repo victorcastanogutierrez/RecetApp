@@ -1,6 +1,8 @@
 # RecetApp
 
-Aplicación Android - Red social de recetas de cocina
+Android application
+
+Social network of kitchen recipes
 
 ## Autores
 
