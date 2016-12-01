@@ -4,7 +4,7 @@ Android application
 
 Social network of kitchen recipes
 
-## Autores
+## Authors
 
-1. Javier Rojo Ortiz
-2. Víctor Castaño Gutiérrez
+1. Víctor Castaño Gutiérrez
+2. Javier Rojo Ortiz
