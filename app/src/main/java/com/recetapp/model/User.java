@@ -1,6 +1,6 @@
 package com.recetapp.model;
 
-import java.util.HashMap;
+import java.util.HashMap; //Edicion en nuevaRama
 import java.util.List;
 import java.util.Map;
 
